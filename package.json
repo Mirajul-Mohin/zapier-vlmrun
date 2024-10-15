@@ -1,0 +1,27 @@
+{
+  "name": "zapier-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run build && jest --testTimeout 10000 --rootDir ./lib/test",
+    "build": "npm run clean && tsc",
+    "clean": "rimraf ./lib ./build",
+    "watch": "npm run clean && tsc --watch",
+    "_zapier-build": "npm run build"
+  },
+  "dependencies": {
+    "zapier-platform-core": "15.15.0",
+    "form-data": "^4.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.6.0",
+    "@types/jest": "^25.2.1",
+    "@types/node": "^13.13.5",
+    "@types/node-fetch": "^2.6.11",
+    "@types/uuid": "^9.0.8",
+    "rimraf": "^3.0.2",
+    "typescript": "^5.5.3"
+  },
+  "private": true
+}
