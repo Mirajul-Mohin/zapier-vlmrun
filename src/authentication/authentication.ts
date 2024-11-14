@@ -7,9 +7,10 @@ const test = (z: ZObject, bundle: Bundle) => {
 }
 
 const handleBadResponses = (response: any, z: ZObject, bundle: Bundle) => {
+    if (response.status)
     if ([401, 403].includes(response.status)) {
         throw new z.errors.Error(
-            'The API Key you supplied is incorrect',
+            response.data.detail,
             'AuthenticationError',
             response.status
         );

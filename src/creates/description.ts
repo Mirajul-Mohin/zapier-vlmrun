@@ -1,5 +1,5 @@
 import { Bundle, ZObject } from "zapier-platform-core";
-import { Operation, Resource } from "../constants/constants";
+import { Resource } from "../constants/constants";
 import { performOperation } from "../helper/apiHelper";
 import { createFileField, createModeField, createModelField, createOperationField, createUrlField } from "./utils";
 
@@ -7,8 +7,13 @@ const perform = async (z: ZObject, bundle: Bundle) => {
 	try {
 		return await performOperation(z, bundle);
 	} catch (error: any) {
-		throw new Error(`File operation failed: ${error.message}`);
+		z.console.log(`[PERFORM] - ${error.message}`);
 	}
+};
+
+const performResume = async (z: ZObject, bundle: Bundle) => {
+	z.console.log(`[Inside Resume] - ${JSON.stringify(bundle.cleanedRequest)}`);
+	return { ...bundle.cleanedRequest };
 };
 
 export const DocumentAi = {
@@ -34,6 +39,7 @@ export const DocumentAi = {
 			createModelField(),
 		],
 		perform,
+		performResume,
 		sample: {
 			operation: "resumeParser",
 			file: "SAMPLE FILE",
@@ -62,6 +68,7 @@ export const ImageAi = {
 			createModelField(),
 		],
 		perform,
+		performResume,
 		sample: {
 			file: "SAMPLE FILE",
 			operation: "imageCaptioning",
@@ -90,6 +97,7 @@ export const AudioAi = {
 			createModelField(),
 		],
 		perform,
+		performResume,
 		sample: {
 			file: "SAMPLE FILE",
 			operation: "audioTranscription",
@@ -121,6 +129,7 @@ export const AgentAi = {
 			createModeField(),
 		],
 		perform,
+		performResume,
 		sample: {
 			operation: "githubAgent",
 			url: "https://github.com/zapier/zapier-platform-core",
@@ -151,6 +160,7 @@ export const ExperimentalAi = {
 			createModelField({ choices: { 'vlm-1-embeddings': 'VLM-1 Embeddings' }, defaultChoice: 'vlm-1-embeddings' }),
 		],
 		perform,
+		performResume,
 		sample: {
 			operation: "imageEmbedding",
 			file: "SAMPLE FILE",
